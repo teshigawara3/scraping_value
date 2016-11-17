@@ -1,0 +1,8 @@
+db:
+  development:
+    host: localhost
+    user: postgres
+    password: m842urvw
+    dbname: postgres
+    port: 5432
+
