@@ -1,29 +1,29 @@
 #! ruby -Ku
 
-require './productlist'
-require './dbaccess'
+require './product_dba'
+require './user_dba'
 require './product'
-require './scraping_value'
+require './site_controller'
 require './make_mail'
 
-user_id=""
-productlist = DbAccess.new.getproductlist
-scraping = Scrapingvalue.new
-productlist.each{|product|
+products = ProductDba.new.select_all
+site = SiteController.new
+products.each{|product|
 	if(product.error_flg == "0") then
-		if(scraping.getvalue(product.url) < 0) then
+		if(site.getvalue(product.url) < 0) then
 			product.error_flg = "2"
 		else
-			product.last_value = scraping.getvalue(product.url)
+			product.last_value = site.getvalue(product.url)
 		end
+
 		if user_id != product.user_id then
 			user_id = product.user_id
 			mail = Makemail.new(user_id)
-			mail.makemailfile
-			mail.makemailcontent(product)
+			mail.set_mail_destination
+			mail.set_mail_content(product)
 		else
 			mail = Makemail.new(user_id)
-			mail.makemailcontent(product)
+			mail.set_mail_content(product)
 		end
 	#	upprice.updproduct(product)
 	end

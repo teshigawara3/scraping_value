@@ -1,19 +1,20 @@
 #! ruby -Ku
 require './mail_contents'
-require './dbaccess'
+require './product_dba'
+require './user_dba'
 
 class Makemail
 	def initialize(user_id)
 		@user_id=user_id
-		@filename="./tmp/test#{user_id}.txt"
+		@filename="./tmp/tmpmail_content_#{user_id}.txt"
 	end
 
-	def getmail(user_id)
+	def get_mail(user_id)
 		mail_id=DbAccess.new.getmailid(user_id)
 		return mail_id
 	end
 
-	def makemailfile
+	def set_mail_destination
 		File.open( @filename , "a") {|file|
 			file.print(Mailcontents::FROM)
 			file.print(Mailcontents::BACKSLASH)
@@ -32,9 +33,9 @@ class Makemail
 		}
 	end
 
-	def makemailcontent(product)
+	def set_mail_content(product)
 		if(product.error_flg == "0") then
-			File.open( @filename ,"a") { |file|
+			File.open( @filename ,"a") {|file|
 				file.print(Mailcontents::CONTENTS01)
 				file.print(Mailcontents::BACKSLASH)
 				file.print(Mailcontents::CONTENTS02)
@@ -50,7 +51,7 @@ class Makemail
 				file.close
 			}
 		elsif(product.error_flg == "1") then
-			File.open( @filename ,"a") { |file|
+			File.open( @filename ,"a") {|file|
 				file.print(Mailcontents::ERRORMSG01)
 				file.print(Mailcontents::BACKSLASH)
 				file.print(Mailcontents::ERRORMSG02)
@@ -59,7 +60,7 @@ class Makemail
 				file.close
 			}
 		elsif(product.error_flg == "2") then
-			File.open( @filename ,"a") { |file|
+			File.open( @filename ,"a") {|file|
 				file.print(Mailcontents::ERRORMSG03)
 				file.print(Mailcontents::BACKSLASH)
 				file.print(Mailcontents::ERRORMSG04)

@@ -2,7 +2,7 @@
 
 require 'open-uri'
 require 'nokogiri'
-require './changecode'
+require './change_char_code'
 
 class Amazon
 	def self.getvalue(url)
