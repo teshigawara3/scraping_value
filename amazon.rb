@@ -5,15 +5,18 @@ require 'nokogiri'
 require './change_char_code'
 
 class Amazon
-	def self.getvalue(url)
+	def self.get_value(url)
 		charset = "UTF-8"
 		html = open(url,{'Cache-Control' => 'no-cache'}) do |f|
 			f.read
 		end
 		html = ChangeCode::utf_str(html)
 		doc = Nokogiri::HTML.parse(html,nil,charset)
-		buybox = doc.xpath('//div[@id="buybox"]')
-		price = buybox.xpath('//span[@class="a-size-medium a-color-price offer-price a-text-normal"]').text()
+		buybox = doc.xpath('/div[@id="priceblock_ourprice_row"]')
+		#price = buybox.xpath('//span[@class="a-size-medium a-color-price offer-price a-text-normal"]').text()
+    price = buybox.xpath('//span[@class="a-size-medium a-color-price"]').text()
+		p price 
+		p "aaa"
 		if price.length > 0
 			return price.gsub(/[^0-9]/,"").to_i
 		else

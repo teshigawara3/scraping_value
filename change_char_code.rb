@@ -1,6 +1,6 @@
 require 'nkf'
 
-class ChangeCode
+class ChangeCharCode
 	
 	def self.utf_str(inputstr)
 		inputcode = ""
@@ -8,7 +8,10 @@ class ChangeCode
 		utf_str = ""
 		inputcode = NKF.guess(inputstr).to_s
 		if inputcode != outputcode then
-			utf_str = inputstr.encode(outputcode,inputcode, :invalid => :replace,:undef => :replace, :replace => "")
+			utf_str = inputstr.encode(outputcode,inputcode, 
+						                    :invalid => :replace,
+																:undef => :replace, 
+																:replace => "")
 		elsif
 			utf_str = inputstr
 		end

@@ -1,31 +1,28 @@
 #! ruby -Ku
 require './mail_contents'
-require './product_dba'
-require './user_dba'
+require './user'
 
-class Makemail
-	def initialize(user_id)
-		@user_id=user_id
+class MakeMail
+	attr_accessor :filename
+	def initialize(user_id="")
 		@filename="./tmp/tmpmail_content_#{user_id}.txt"
 	end
 
-	def get_mail(user_id)
-		mail_id=DbAccess.new.getmailid(user_id)
-		return mail_id
-	end
-
-	def set_mail_destination
-		File.open( @filename , "a") {|file|
+	def set_mail_header(to="",cc="",bcc="",reply_to="")
+		File.open( @filename , "a" ) {|file|
 			file.print(Mailcontents::FROM)
 			file.print(Mailcontents::BACKSLASH)
 			file.print(Mailcontents::TO)
-			file.print(getmail(@user_id))
+			file.print(to)
 			file.print(Mailcontents::BACKSLASH)
 			file.print(Mailcontents::CC)
+			file.print(cc)
 			file.print(Mailcontents::BACKSLASH)
 			file.print(Mailcontents::BCC)
+			file.print(bcc)
 			file.print(Mailcontents::BACKSLASH)
 			file.print(Mailcontents::REPLY_TO)
+			file.print(reply_to)
 			file.print(Mailcontents::BACKSLASH)
 			file.print(Mailcontents::SUBJECT)
 			file.print(Mailcontents::BACKSLASH)		
