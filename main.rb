@@ -15,12 +15,12 @@ users.each{|user|
   products.each{|product|
 		if product.error_flg == 0 then
 			latest_goods_value = site.get_value(product.url)
-			if goodsvalue < 0 then
+			if latest_goods_value < 0 then
 				# URLが間違っている場合とサイト自体が対応していない場合で分けるロジック要追加
 				product.error_flg = 2
 			else
 				if product.first_value == 0 then
-					product_dba.update(product)
+					product_dba.update_value(product)
 				else
   				if product.last_value != latest_goods_value then
 			      if (product.last_value - latest_goods_value).abs >= border_value then
@@ -33,7 +33,7 @@ users.each{|user|
 							end
 							#mail send login have to add
 						end
-							product_dba.update(product)
+							product_dba.update_value(product)
 					end
 				end				
 			end
@@ -46,6 +46,7 @@ users.each{|user|
 				else
 					error_mail.set_mail_content(product)
 				end
+				product_dba.update_error_mail_send_flg(product)
 			end
 		end
 	}
