@@ -1,0 +1,21 @@
+mailcontents: 
+  from: 'From:kazuhisa246@gmail.com'
+  to: 'To:'
+  cc: 'Cc:'
+  bcc: 'Bcc:'
+  reply_to: 'Reply-to:'
+  subject: = 'Subject:値下げ通知'
+  url: = 'URL:'
+  content01: '登録した商品の値段が下がりました。'
+  content02: '登録時価格:'
+  content03: '現在価格:'
+  content04: '差額:'
+  backslash: '\n'
+  errormsg01:	'登録したURLに誤りがあるか、URLが変わりました。'
+  errormsg02: 'ご確認ください。'
+  errormsg03:	'ご登録いただいたサイトは現在価格取得に対応していません。'
+  errormsg04:	'今後対応予定です。'
+mailconfig: 
+  file_path: 'C:\ruby\getvalue\tmp'
+  file_extension: '.txt'
+
