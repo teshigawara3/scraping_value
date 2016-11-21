@@ -26,7 +26,6 @@ class MailController
 								         Mailcontents::MAIL_FILE_EXTENSION 
 						  if !File.exist?(mail_filename) then
                 set_mail_header(mail_filename, user.email)
-								p product
 							  set_mail_content(mail_filename, product)
 						  else
 							  set_mail_content(mail_filename, product)
@@ -53,9 +52,13 @@ class MailController
 
 	def do_send_mail(from, to)
     mail_files = Array.new
-		mail_flles = %x[ ls #{Mailcontents::MAIL_FILE_PATH} ]
+		mail_path = Mailcontents::MAIL_FILE_PATH + '*'
+		p mail_path
+		mail_files = Dir.glob("#{mail_path}")
+		p mail_files
 		mail_files.each{|mail_file|
-			%x[ sendmail -f #{from} -t #{to} ]
+		  p mail_file
+			%x[ cat #{mail_file} | sendmail -f #{from} -t #{to} ]
 		}
 	end
 

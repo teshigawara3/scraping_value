@@ -1,15 +1,10 @@
 #! ruby -Ku
 
 require './product_dba'
-#require './product'
 require './user_dba'
-#require './user'
-#require './site_controller'
 require './mail_controller'
 require './mail_contents'
 require './utility'
-#require './set_mail_content'
-#include SetMailContent
 include Utility
 
 product_dba = ProductDba.new
@@ -22,7 +17,7 @@ users.each{|user|
   products.each{|product|
     mail_controller.create_message(user, product)    
 	}
-#  mail_controller.do_send_mail(Mailcontents::FROM_ADDRESS, user.email)
+  mail_controller.do_send_mail(Mailcontents::FROM_ADDRESS, user.email)
   mail_controller.delete_all_files(change_dirformat_to_unixformat(Mailcontents::MAIL_FILE_PATH))
 }
 

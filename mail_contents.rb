@@ -17,6 +17,7 @@ class Mailcontents
 	ERRORMSG03 = "ご登録いただいたサイトは現在価格取得に対応していません。"
 	ERRORMSG04 = "今後対応予定です。"
 
-	MAIL_FILE_PATH = 'C:\ruby\getvalue\tmp\\'
+	#MAIL_FILE_PATH = 'C:\ruby\getvalue\tmp\\'
+  MAIL_FILE_PATH = '/home/omori/Desktop/ruby/getvalue/tmp/'
 	MAIL_FILE_EXTENSION = '.txt'
 end
